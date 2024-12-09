@@ -114,12 +114,29 @@ const analyzeTrends = (tokens: any, historicalScores: any) => {
   });
 };
 
-export const analyzeAndPredictTokens = (tokens: any, historicalScores = {}) => {
+export const analyzeAndPredictTokens = async (tokens: any, historicalScores = {}) => {
   const rankedTokens = rankTokens(tokens);
   const trendAnalysis = analyzeTrends(rankedTokens, historicalScores);
 
-  return trendAnalysis.filter((token: any) => token.trend === "pumping").slice(0, 10);
+  // Fetch the token list
+  const tokenList: any = await fetch(
+    "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
+  ).then((res) => res.json());
+
+  const result = trendAnalysis.filter((token: any) => token.trend === "pumping").slice(0, 10);
+
+  return result.map((token: any) => {
+    // Check if the token is listed
+    const isListed = tokenList.tokens.some((listedToken: any) => listedToken.address === token.mint);
+    
+    // Return the token with the 'listed' property
+    return {
+      ...token,
+      listed: isListed, // true if listed, false otherwise
+    };
+  });
 };
+
 
 interface Transfer {
   token_address: string;
@@ -255,7 +272,7 @@ const analyzeTokens = (tokensData: TokensData) => {
     }
   }
 
-  return { totalTokenValue : totalTokenValue || 0, totalBalance : totalBalance || 0 };
+  return { totalTokenValue: totalTokenValue || 0, totalBalance: totalBalance || 0 };
 };
 
 const analyzeBalanceChanges = (transfers: Record<string, Transfer>) => {

@@ -11,6 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CopyButton from "@/components/ui/copyButton";
 import { AnimatedCircularProgressBar } from "@/components/ui/animatedCircularProgressBar";
 import { AnimatedList } from "@/components/ui/animatedList";
+import { useToast } from "@/hooks/use-toast";
+
 
 export default function Page() {
 
@@ -21,6 +23,8 @@ export default function Page() {
   const [predictProgressValue, setPredictProgressValue] = useState<number>(0);
 
   const [webSockets, setWebSockets] = useState<any>(null);
+
+  const { toast } = useToast()
 
   useEffect(() => {
     setLoading(true);
@@ -88,7 +92,18 @@ export default function Page() {
   const handlePredictions = useCallback(async () => {
     webSockets.close();
     setStartPredict(true);
-    const result = analyzeAndPredictTokens(memeCoins);
+    const result :any= await analyzeAndPredictTokens(memeCoins);
+    
+    const areAllUnlisted = (items: Array<{ listed: boolean }>): boolean => {
+      return items.every(item => !item.listed);
+    };
+
+    if(areAllUnlisted(result)){
+      toast({
+        title : 'None Items Are Listed In Phantom Wallet'
+      })
+    }
+
     let arr: any = [];
 
     try {
@@ -113,7 +128,7 @@ export default function Page() {
 
 
   return (
-    <section className="flex w-full lg:w-5/12 lg:mx-auto flex-col justify-center p-5">
+    <section className="flex w-full lg:w-5/12 lg:mx-auto flex-col justify-center p-3">
       <div className="flex flex-col items-center z-20 justify-center gap-1">
         <h1 className="text-2xl font-bold">Find Your Next Meme</h1>
         <p className="font-semibold text-muted-foreground">{'( Powered By ChatGPT )'}</p>
@@ -135,7 +150,6 @@ export default function Page() {
           ))
           : !startPredict ?
             <AnimatedList>
-
               {memeCoins.map((token: any, index: number) => (
                 <div key={token.name} className="flex bg-primary-foreground overflow-hidden relative w-full items-center justify-between rounded-xl border-2 p-3 shadow-2xl">
                   {token.score && <span className="absolute text-primary-foreground font-bold text-center w-14 -left-4 top-1 -rotate-45 h-5 text-sm bg-primary">{index + 1}</span>}
@@ -174,7 +188,7 @@ export default function Page() {
                       </Link>}
                     </div>
                   </div>
-                  <div className="flex w-6/12 flex-col items-end justify-between gap-y-2 font-semibold">
+                  <div className="flex w-5/12 flex-col items-end justify-between gap-y-2 font-semibold">
                     <div className="flex w-full items-center justify-between">
                       <div className="flex items-center justify-end gap-x-2">
                         <CopyButton variant={'outline'} value={token.mint} className="h-6 w-6" />
