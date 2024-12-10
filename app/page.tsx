@@ -1,5 +1,6 @@
 'use client'
 
+import { FlickeringGrid } from "@/components/ui/flickeringGrid"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -7,13 +8,23 @@ import Link from "next/link"
 export default function Page() {
 
   return (
-    <section className="flex w-full lg:w-5/12 lg:mx-auto flex-col justify-center">
-      <div className="flex flex-col items-center z-20 justify-center gap-1 mt-5">
+    <section className="flex w-full h-screen overflow-y-hidden relative lg:w-5/12 lg:mx-auto flex-col justify-center">
+      <div className="flex flex-col -mt-48 items-center z-20 justify-center gap-1">
         <h1 className="text-2xl font-bold">Select Your Reference</h1>
         <p className="font-semibold text-muted-foreground">{'( Powered By ChatGPT )'}</p>
       </div>
       <div className="flex mt-10 px-5 flex-col items-center w-full gap-y-5">
-        <Link href={'/pumpFun'} className="w-full flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
+        <FlickeringGrid
+          className="z-0 absolute top-0 inset-0 "
+          squareSize={4}
+          gridGap={6}
+          color="#6B7280"
+          maxOpacity={0.5}
+          flickerChance={0.1}
+          height={1000}
+          width={800}
+        />
+        <Link href={'/pumpFun'} className="w-full z-20 flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2 bg-primary-foreground">
           <p className="text-xl font-bold tabular-nums">
             Pump.fun
           </p>
@@ -25,7 +36,7 @@ export default function Page() {
             height={30}
           />
         </Link>
-        <div className="w-full flex justify-between opacity-30 items-center p-5 shadow-xl h-20 rounded-xl border-2">
+        <div className="w-full z-20 bg-primary-foreground flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
           <p className="text-xl font-bold tabular-nums">
             Dex Screen
           </p>
@@ -39,7 +50,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="w-full opacity-30 flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
+        <div className="w-full z-20 bg-primary-foreground flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
           <p className="text-xl font-bold tabular-nums">
             Raydium
           </p>
@@ -52,7 +63,7 @@ export default function Page() {
           />
         </div>
 
-        <div className="w-full opacity-30 flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
+        <div className="w-full z-20 bg-primary-foreground flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
           <p className="text-xl font-bold tabular-nums">
             Dex Tools
           </p>
@@ -65,7 +76,7 @@ export default function Page() {
           />
         </div>
 
-        <div className="w-full opacity-30 flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
+        <div className="w-full z-20 bg-primary-foreground flex justify-between items-center p-5 shadow-xl h-20 rounded-xl border-2">
           <p className="text-xl font-bold tabular-nums">
             Sol Scan
           </p>
