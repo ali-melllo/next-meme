@@ -34,7 +34,7 @@ export default function Page() {
         maxOpacity={0.5}
         flickerChance={0.1}
         height={1000}
-        width={800}
+        width={2000}
       />
       {connected ?
         <>
@@ -111,10 +111,10 @@ export default function Page() {
         </> :
         <div className="flex items-center mt-5 flex-col">
           <LetterPullup className="z-20 text-2xl text-[#512da8] font-extrabold" words={"Use AI to put Your Trade On"} delay={0.02} />
-          <LetterPullup className="z-20 text-base font-bold" words={"Reference From Any dex at same Time"} delay={0.02} />
-          <AnimatedBeamMultipleOutputDemo className="bg-transparent mt-10" />
-          <div className="px-5 w-full">
-            <RainbowButton className="z-20 h-14 rounded-2xl font-bold text-xl pt-1 mt-10 w-full">
+          <LetterPullup className="z-20 text-base lg:text-xl font-bold" words={"Reference From Any dex at same Time"} delay={0.02} />
+          <AnimatedBeamMultipleOutputDemo className="bg-transparent lg:shadow-none mt-10" />
+          <div className="px-5 w-full flex justify-center">
+            <RainbowButton className="z-20 h-14 rounded-2xl font-bold text-xl pt-1 mt-10 w-full md:w-6/12">
               Subscribe & Start Trading
             </RainbowButton>
           </div>
