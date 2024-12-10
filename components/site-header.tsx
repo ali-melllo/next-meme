@@ -40,15 +40,15 @@ export function SiteHeader() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle className="text-[#512da8]">Disconnect and Log out</AlertDialogTitle>
+                      <AlertDialogTitle className="text-[#512da8] font-bold">Disconnect and Log out</AlertDialogTitle>
                       <AlertDialogDescription>
                         You will disconnect your wallet and logged out of application.
                         You wont be able to use it's features until logged in.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel className="text-[#512da8] ">Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="bg-[#512da8] text-white" onClick={disconnect}>Continue</AlertDialogAction>
+                      <AlertDialogCancel className="text-[#512da8] rounded-2xl ">Cancel</AlertDialogCancel>
+                      <AlertDialogAction className="bg-[#512da8] rounded-2xl text-white" onClick={disconnect}>Disconnect</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

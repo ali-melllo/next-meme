@@ -141,9 +141,9 @@ export default function Page() {
             {<div className="flex z-20 justify-center mt-5 items-center">
                 <Button disabled={startListing || loading || startPredict} onClick={handlePredictions} className="w-full text-lg font-semibold h-16">
                     {loading ?
-                        <Loader className="size-5 animate-spin" /> : startListing ?
-                            <div className="flex items-center gap-x-5"> <Loader className="size-5 animate-spin" />Listing From Pump.fun ... </div> : startPredict ?
-                                <div className="flex items-center gap-x-5"> <Loader className="size-5 animate-spin" />Processing the Analyze ... </div> : 'Start Analyzing & Prediction'}
+                        <Loader className="size-10 animate-spin" /> : startListing ?
+                            <div className="flex items-center gap-x-5"> <Loader className="size-10 animate-spin" />Listing From Pump fun ... </div> : startPredict ?
+                                <div className="flex items-center gap-x-5"> <Loader className="size-10 animate-spin" />Processing the Analyze ... </div> : 'Start Analyzing & Prediction'}
                 </Button>
             </div>}
 

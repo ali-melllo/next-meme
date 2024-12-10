@@ -54,8 +54,8 @@ module.exports = {
   			'color-5': 'hsl(var(--color-5))'
   		},
   		borderRadius: {
-  			lg: '`var(--radius)`',
-  			md: '`calc(var(--radius) - 2px)`',
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
