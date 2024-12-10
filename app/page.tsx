@@ -94,13 +94,17 @@ export default function Page() {
     setStartPredict(true);
     const result :any= await analyzeAndPredictTokens(memeCoins);
     
-    const areAllUnlisted = (items: Array<{ listed: boolean }>): boolean => {
-      return items.every(item => !item.listed);
+    const areAllUnlisted = (items: Array<{ listedInPhantom: boolean }>): boolean => {
+      return items.every(item => !item.listedInPhantom);
     };
 
-    if(areAllUnlisted(result)){
+    const areAllUnlistedInRaydium = (items: Array<{ listedInRaydium: boolean }>): boolean => {
+      return items.every(item => !item.listedInRaydium);
+    };
+
+    if(areAllUnlisted(result) && areAllUnlistedInRaydium(result) ){
       toast({
-        title : 'None Items Are Listed In Phantom Wallet'
+        title : 'None Items Are Listed In Phantom Wallet or Raydium'
       })
     }
 
@@ -117,7 +121,7 @@ export default function Page() {
       const finalResult = await finalAnalyze(arr)
       setMemeCoins(finalResult);
       setStartPredict(false);
-
+      setPredictProgressValue(0);
     } catch (err) {
       setStartPredict(false);
       console.error("Error in handlePredictions:", err);
@@ -151,7 +155,7 @@ export default function Page() {
           : !startPredict ?
             <AnimatedList>
               {memeCoins.map((token: any, index: number) => (
-                <div key={token.name} className="flex bg-primary-foreground overflow-hidden relative w-full items-center justify-between rounded-xl border-2 p-3 shadow-2xl">
+                <div key={token.name} className={`flex ${token.listedInPhantom ? 'bg-[#40069d]' : token.listedInRaydium ? 'bg-blue-900' : 'bg-primary-foreground '} overflow-hidden relative w-full items-center justify-between rounded-xl border-2 p-3 shadow-2xl`}>
                   {token.score && <span className="absolute text-primary-foreground font-bold text-center w-14 -left-4 top-1 -rotate-45 h-5 text-sm bg-primary">{index + 1}</span>}
                   <div className="flex w-2/12 items-center justify-center">
                     <Image

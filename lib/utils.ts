@@ -118,7 +118,13 @@ export const analyzeAndPredictTokens = async (tokens: any, historicalScores = {}
   const rankedTokens = rankTokens(tokens);
   const trendAnalysis = analyzeTrends(rankedTokens, historicalScores);
 
-  // Fetch the token list
+
+  // https://tokens.jup.ag/tokens?tags=lst
+  const raydiumTokenList: any = await fetch(
+    "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
+  ).then((res) => res.json());
+
+  // Fetch the token list from Solana github
   const tokenList: any = await fetch(
     "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
   ).then((res) => res.json());
@@ -128,11 +134,13 @@ export const analyzeAndPredictTokens = async (tokens: any, historicalScores = {}
   return result.map((token: any) => {
     // Check if the token is listed
     const isListed = tokenList.tokens.some((listedToken: any) => listedToken.address === token.mint);
-    
+    const isListedInRaydium = raydiumTokenList.tokens.some((listedToken: any) => listedToken.address === token.mint);
+
     // Return the token with the 'listed' property
     return {
       ...token,
-      listed: isListed, // true if listed, false otherwise
+      listedInPhantom : isListed, 
+      listedInRaydium : isListedInRaydium
     };
   });
 };
