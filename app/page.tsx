@@ -151,7 +151,7 @@ export default function Page() {
         height={1000}
         width={800}
       />
-      {(connected && registered) ?
+      {(connected && !registered) ?
         <>
           <div className="flex flex-col mt-5 items-center z-20 justify-center gap-1">
             <h1 className="text-2xl font-bold">Select Your Reference</h1>

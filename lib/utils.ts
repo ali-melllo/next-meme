@@ -124,22 +124,15 @@ export const analyzeAndPredictTokens = async (tokens: any, historicalScores = {}
     "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
   ).then((res) => res.json());
 
-  // Fetch the token list from Solana github
-  const tokenList: any = await fetch(
-    "https://raw.githubusercontent.com/solana-labs/token-list/main/src/tokens/solana.tokenlist.json"
-  ).then((res) => res.json());
-
   const result = trendAnalysis.filter((token: any) => token.trend === "pumping").slice(0, 10);
 
   return result.map((token: any) => {
     // Check if the token is listed
-    const isListed = tokenList.tokens.some((listedToken: any) => listedToken.address === token.mint);
     const isListedInRaydium = raydiumTokenList.tokens.some((listedToken: any) => listedToken.address === token.mint);
 
     // Return the token with the 'listed' property
     return {
       ...token,
-      listedInPhantom : isListed, 
       listedInRaydium : isListedInRaydium
     };
   });
@@ -409,3 +402,32 @@ export const finalAnalyze = async (topTenItems: Item[]) => {
 
   return sortedByScore;
 };
+
+
+
+
+
+// https://solana-mainnet.g.alchemy.com/v2/_MXLLR1FQfbT-_ZObTI2t3lzjVQNOHVJ
+
+
+// {
+//   "method": "getProgramAccounts",
+//   "jsonrpc": "2.0",
+//   "params": [
+//       "CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d",
+//       {
+//           "encoding": "base64",
+//           "commitment": "confirmed",
+//           "filters": [
+//               {
+//                   "memcmp": {
+//                       "offset": 1,
+//                       "bytes": "GEPVw9VznYmsX7jppEVShEmsFb5uMHMV3BRCZrVdiT52",
+//                       "encoding": "base58"
+//                   }
+//               }
+//           ]
+//       }
+//   ],
+//   "id": "bc310cad-8802-4ce7-962f-f56fe4eec1c8"
+// }

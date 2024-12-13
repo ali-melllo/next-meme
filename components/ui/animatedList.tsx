@@ -7,10 +7,11 @@ export interface AnimatedListProps {
   className?: string;
   children: React.ReactNode;
   delay?: number;
+  reverse?:boolean;
 }
 
 export const AnimatedList = React.memo(
-  ({ className, children, delay = 500 }: AnimatedListProps) => {
+  ({ className, children, delay = 500 , reverse}: AnimatedListProps) => {
     const [index, setIndex] = useState(0);
     const childrenArray = useMemo(
       () => React.Children.toArray(children),
@@ -28,7 +29,7 @@ export const AnimatedList = React.memo(
     }, [index, delay, childrenArray.length]);
 
     const itemsToShow = useMemo(() => {
-      const result = childrenArray.slice(0, index + 1).reverse();
+      const result = reverse ? childrenArray.slice(0, index + 1).reverse() : childrenArray.slice(0, index + 1);
       return result;
     }, [index, childrenArray]);
 
